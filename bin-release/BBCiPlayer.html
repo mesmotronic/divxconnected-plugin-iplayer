@@ -1,0 +1,110 @@
+<!--
+Unofficial BBC iPlayer Plug-in for DivX Connected
+Copyright (C) 2010 Mesmotronic Limited <www.mesmotronic.com>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+ 
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+02111-1307 USA
+-->
+
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>BBC iPlayer for DivX Connected</title>
+		
+		<style>
+			html 
+			{
+				background-color: #000;
+				color: #FFF;
+				height: 100%;
+			}
+			body 
+			{
+				height: 100%; 
+				margin: 0;
+				overflow: hidden; 
+			}
+		</style>
+		
+		<script src="chrome://connected/content/connected.js" type="text/javascript"></script>
+		
+		<script type="text/javascript">
+			function onKeyEvent(event)
+			{
+				switch(event.buttonId)
+				{
+					case dcIKeyEvent.BUTTON_ID_BACK:
+						return false; // allow default behavior (navigate back)
+				}
+			}
+			
+			function onLoad()
+			{
+				connected.onKeyEvent = onKeyEvent;
+			}
+
+			function loadPage(uri)
+			{
+				var desc = connected.createPageDescriptor();
+				desc.uri = uri;
+				desc.pageType = dcIConnected.PT_HTML;
+				desc.viewConstraints.addResolutionConstraint(640, 360); // Indented due to CSS! :-(
+				desc.audioCapture = true;
+				desc.htmlInputFocusMode = dcIPageDescriptor.FOCUS_MODE_WINDOW;
+				
+				connected.loadFromPageDescriptor(desc);
+			}
+
+			function loadBigScreen(id)
+			{
+				var uri = "http://www.bbc.co.uk/iplayer/bigscreen/playback/"+id;
+			
+				var desc = connected.createPageDescriptor();
+				desc.uri = uri;
+				desc.pageType = dcIConnected.PT_HTML;
+				desc.viewConstraints.addResolutionConstraint(640, 360); // Indented due to CSS! :-(
+				desc.audioCapture = true;
+				desc.htmlInputFocusMode = dcIPageDescriptor.FOCUS_MODE_WINDOW;
+				
+				connected.loadFromPageDescriptor(desc);
+			}
+
+			function loadConsole(id)
+			{
+				var uri = "http://www.bbc.co.uk/iplayer/console/tv/"+id;
+				
+				var desc = connected.createPageDescriptor();
+				desc.uri = uri;
+				desc.pageType = dcIConnected.PT_HTML;
+				desc.viewConstraints.addResolutionConstraint(512, 288); // For use with pop-out window player
+				desc.audioCapture = true;
+				desc.htmlInputFocusMode = dcIPageDescriptor.FOCUS_MODE_OBJECT;
+				
+				connected.loadFromPageDescriptor(desc);
+			}
+			
+		</script>
+		
+	</head>
+	
+	<body scroll="no" onLoad="onLoad();">
+	
+		<object data="BBCiPlayer.swf" id="BBCiPlayer" name="BBCiPlayer" type="application/x-shockwave-flash" height="100%" width="100%">
+			<param name="movie" value="BBCiPlayer.swf">
+			<param name="allowScriptAccess" value="always">
+		</object>
+		
+	</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+	<!-- Channels -->
+	<category>
+	
+		<name>Channels</name>
+		
+		<!-- Generic -->
+		<feed>
+			<name>TV Highlights</name>
+			<url>http://feeds.bbc.co.uk/iplayer/highlights/tv</url>
+		</feed>
+		<feed>
+			<name>Most Popular TV</name>
+			<url>http://feeds.bbc.co.uk/iplayer/popular/tv</url>
+		</feed>
+		
+		<!-- Channels -->
+		<feed>
+			<name>BBC One</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_one/list</url>
+		</feed>
+		<feed>
+			<name>BBC Two</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_two/list</url>
+		</feed>
+		<feed>
+			<name>BBC Three</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_three/list</url>
+		</feed>
+		<feed>
+			<name>BBC Four</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_four/list</url>
+		</feed>
+		<feed>
+			<name>CBBC</name>
+			<url>http://feeds.bbc.co.uk/iplayer/cbbc/list</url>
+		</feed>
+		<feed>
+			<name>CBeebies</name>
+			<url>http://feeds.bbc.co.uk/iplayer/cbeebies/list</url>
+		</feed>
+		<feed>
+			<name>BBC News Channel</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_news24/list</url>
+		</feed>
+		<feed>
+			<name>BBC Parliament</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_parliament/popular</url>
+		</feed>
+		<feed>
+			<name>BBC HD</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_hd/list</url>
+		</feed>
+		<feed>
+			<name>BBC ALBA</name>
+			<url>http://feeds.bbc.co.uk/iplayer/bbc_alba/list</url>
+		</feed>
+		
+	</category>
+		
+	<!-- Genres -->
+	<category>
+	
+		<name>Genres</name>
+		<feed>
+			<name>Children's</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/childrens/tv/list</url>
+		</feed>
+		<feed>
+			<name>Comedy</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/comedy/tv/list</url>
+		</feed>
+		<feed>
+			<name>Drama</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/drama/tv/list</url>
+		</feed>
+		<feed>
+			<name>Entertainment</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/entertainment/tv/list</url>
+		</feed>
+		<feed>
+			<name>Factual</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/factual/tv/list</url>
+		</feed>
+		<feed>
+			<name>Films</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/films/tv/list</url>
+		</feed>
+		<feed>
+			<name>Learning</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/learning/tv/list</url>
+		</feed>
+		<feed>
+			<name>Lifestyle & Leisure</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/lifestyle_and_leisure/tv/list</url>
+		</feed>
+		<feed>
+			<name>Music</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/music/tv/list</url>
+		</feed>
+		<feed>
+			<name>News</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/news/tv/list</url>
+		</feed>
+		<feed>
+			<name>Religion & Ethics</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/religion_and_ethics/tv/list</url>
+		</feed>
+		<feed>
+			<name>Sport</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/sport/tv/list</url>
+		</feed>
+		
+	</category>
+	
+	<!-- Other -->	
+	<category>
+	
+		<!-- Regions -->
+		<name>Other</name>
+		<feed>
+			<name>Northern Ireland</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/northern_ireland/tv/list</url>
+		</feed>
+		<feed>
+			<name>Scotland</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/scotland/tv/list</url>
+		</feed>
+		<feed>
+			<name>Wales</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/wales/tv/list</url>
+		</feed>
+		
+		<!-- Hearing/visually impaired -->
+		<feed>
+			<name>Audio Described</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/audiodescribed/tv/list</url>
+		</feed>
+		<feed>
+			<name>Sign Zone</name>
+			<url>http://feeds.bbc.co.uk/iplayer/categories/signed/tv/list</url>
+		</feed>
+		
+	</category>
+		
+</data>

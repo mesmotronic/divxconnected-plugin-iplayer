@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" compiles="true" parentProject="e99b6bd4-9a1c-442b-9df2-832de18d5663" projectUUID="e99b6bd4-9a1c-442b-9df2-832de18d5663" sdkVersion="4.0.0" uuid="339beca4-835e-4efe-9e63-d617adcc2ce3" version="4">
+  <projects/>
+  <src/>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="339beca4-835e-4efe-9e63-d617adcc2ce3"/>
+    <linked location="C:/Documents and Settings/Neil/Adobe Flash Builder 4/BBCiPlayer/libs" path="/libs" position="1" uuid="339beca4-835e-4efe-9e63-d617adcc2ce3"/>
+  </swc>
+  <misc/>
+  <theme/>
+</fxpProperties>

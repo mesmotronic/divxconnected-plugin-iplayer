@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plug-in>
+    <title>BBC iPlayer</title>
+    <icon-url>http://labs.mesmotronic.com/bbciplayer/plugin/icon.png</icon-url>
+    <poster-url>http://labs.mesmotronic.com/bbciplayer/plugin/poster.png</poster-url>
+    <page-descriptor>
+        <type>DCTK</type>
+		<source-url>http://labs.mesmotronic.com/bbciplayer/plugin/BBCiPlayer.js</source-url>
+    </page-descriptor>
+</plug-in>

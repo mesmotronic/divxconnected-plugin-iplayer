@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Unofficial BBC iPlayer Plug-in for DivX Connected
+Copyright (C) 2010 Mesmotronic Limited <www.mesmotronic.com>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+02111-1307 USA
+-->
+<s:Application
+	addedToStage="addedToStageHandler(event)"
+	creationComplete="creationCompleteHandler(event)"
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	>
+	
+	<fx:Metadata>
+		[SWF(width='800', height='600', backgroundColor='#000000', frameRate='30')]
+	</fx:Metadata>
+	
+	<fx:Declarations>
+		<s:HTTPService
+			id="channels"
+			url="channels.xml"
+			resultFormat="e4x"
+			result="channels_resultHandler(event)"
+			/>
+		<s:HTTPService
+			id="currentFeed"
+			resultFormat="e4x"
+			result="currentFeed_resultHandler(event)"
+			/>
+	</fx:Declarations>
+	
+	<fx:Style source="BBCiPlayer.css" />
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.net.navigateToURL;
+			
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			namespace atom = "http://www.w3.org/2005/Atom";
+			use namespace atom;
+			
+			namespace bbc = "http://bbc.co.uk/2008/mp/mediaselection";
+			use namespace bbc;
+			
+			[Bindable] protected var categoriesCollection:XMLListCollection;
+			[Bindable] protected var channelsCollection:XMLListCollection;
+			[Bindable] protected var programmeCollection:XMLListCollection;
+			
+			protected var sharedObject:SharedObject = SharedObject.getLocal("BBCiPlayer_DivXConnected");
+			protected var channelsSelected:Boolean = true;
+			protected var channelTimer:Timer;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				channels.send();
+				channelsList.setFocus();
+				channelsList.styleName = "selected";
+
+				channelTimer = new Timer(500, 1);
+				channelTimer.addEventListener(TimerEvent.TIMER_COMPLETE, channelTimer_timerCompleteHandler);
+				
+				currentState = "channels";
+			}
+			
+			override protected function keyDownHandler(event:KeyboardEvent):void
+			{
+				super.keyDownHandler(event);
+				
+				switch (event.keyCode)
+				{
+					case Keyboard.ENTER:
+						
+						if (!channelsSelected)
+						{
+							if (programmeList.selectedIndex == -1) return;
+							
+							var id:String = programmeList.selectedItem.id.toString().split(":").pop();
+							//var url:String = "http://www.bbc.co.uk/iplayer/bigscreen/playback/"+id;
+							//ExternalInterface.call("loadPage", url);
+							
+							if (ExternalInterface.available) 
+							{
+								ExternalInterface.call("loadConsole", id);
+							}
+							
+							break;
+						}
+						else
+						{
+							toggleMenu();
+						}
+					
+						/*
+					case Keyboard.LEFT:
+						if (!channelsSelected) toggleMenu();
+						break;
+						*/
+					case Keyboard.RIGHT:
+						if (channelsSelected) toggleMenu();
+						break;
+						
+					case 48: // 0
+						toggleMenu();
+						break;
+				}
+				
+				sharedObject.data.selectedChannel = channelsList.selectedIndex;
+				sharedObject.flush();
+			}
+			
+			protected function toggleMenu():void
+			{
+				if (channelsSelected)
+				{
+					programmeList.setFocus();
+					programmeList.styleName = "selected";
+					channelsList.styleName = "";
+					
+					if (programmeList.selectedIndex == -1)
+					{
+						programmeList.selectedIndex = 0;
+					}
+					
+					currentState = "programmes";
+				}
+				else
+				{
+					channelsList.setFocus();
+					channelsList.styleName = "selected";
+					programmeList.styleName = "";
+					
+					currentState = "channels";
+				}
+				
+				channelsSelected = !channelsSelected; 
+			}
+			
+			protected function channels_resultHandler(event:ResultEvent):void
+			{
+				var i:uint = 1;
+				var xml:XML = new XML(event.result);
+				
+				categoriesCollection = new XMLListCollection(xml.category);
+				//categoryTabBar.selectedIndex = sharedObject.data.hasOwnProperty("selectedCategory") ? sharedObject.data.selectedChannel : 0;
+				
+				channelsCollection = new XMLListCollection(xml..feed);
+				channelsList.selectedIndex = sharedObject.data.hasOwnProperty("selectedChannel") ? sharedObject.data.selectedChannel : 0;
+				
+				//currentFeed.url = channelsCollection.getItemAt(0).url;
+				//currentFeed.send();
+			}
+			
+			protected function channelsList_changeHandler(event:Event):void
+			{
+				if (!channelsList.selectedItem) return;
+				
+				channelTimer.reset();
+				channelTimer.start();
+			}
+			
+			protected function channelTimer_timerCompleteHandler(event:TimerEvent):void
+			{
+				currentFeed.url = "proxy.php?url="+channelsList.selectedItem.url;
+				currentFeed.send();
+			}
+			
+			protected function currentFeed_resultHandler(event:ResultEvent):void
+			{
+				var xml:XML = new XML(event.result);
+				programmeCollection = new XMLListCollection(xml.entry);
+			}
+			
+			protected function addedToStageHandler(event:Event):void
+			{
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="channels" />
+		<s:State name="programmes" />
+	</s:states>
+	
+	<s:VGroup
+		width="100%" height="100%"
+		paddingTop="0"
+		paddingBottom="0"
+		paddingLeft="0"
+		paddingRight="0"
+		gap="8"
+		>
+		
+		<s:HGroup
+			width="100%" height="100%"
+			paddingTop="16"
+			paddingBottom="0"
+			paddingLeft="16"
+			paddingRight="16"
+			gap="8"
+			>
+			
+			<!--
+			<s:VGroup height="240">
+				
+				<s:TabBar
+					id="categoryTabBar"
+					dataProvider="{categoriesCollection}"
+					labelField="name"
+					width="100%"
+					/>
+				
+				<s:List
+					id="channelsList"
+					dataProvider="{categoryTabBar.selectedItem.feed}"
+					labelField="name"
+					styleName="bigLabel"
+					width="100%" height="100%"
+					change="channelsList_changeHandler(event)"
+					valueCommit="channelsList_changeHandler(event)"
+					/>
+				
+			</s:VGroup>
+			-->
+			
+			<s:List
+				id="channelsList"
+				dataProvider="{channelsCollection}"
+				labelField="name"
+				styleName="bigLabel"
+				width="220" height="100%"
+				change="channelsList_changeHandler(event)"
+				valueCommit="channelsList_changeHandler(event)"
+				borderVisible="false"
+				/>
+			
+			<s:List
+				id="programmeList"
+				itemRenderer="programmeItemRenderer"
+				dataProvider="{programmeCollection}"
+				borderVisible="false"
+				width="100%" height="100%"
+				>
+				<s:layout>
+					<s:TileLayout />
+				</s:layout>
+			</s:List>
+			
+		</s:HGroup>
+	
+		<s:Group width="100%">
+			
+			<s:Rect
+				width="100%" height="56"
+				>
+				<s:fill>
+					<s:BitmapFill
+						source="@Embed('assets/header_background.png')"
+						fillMode="repeat" />
+				</s:fill>
+			</s:Rect>
+			
+			<s:HGroup
+				styleName="header"
+				verticalAlign="middle"
+				width="100%"
+				paddingTop="8"
+				paddingBottom="16"
+				paddingLeft="16"
+				paddingRight="16"
+				gap="4"
+				>
+				
+				<mx:Image source="@Embed('assets/bbciplayer.png')" />
+				<mx:Spacer width="100%" />
+				
+				<s:HGroup includeIn="channels">
+					
+					<mx:Image source="@Embed('assets/arrows.png')" />
+					<s:Label text="Select Channel" />
+					<mx:Spacer width="4" />
+					
+					<s:Label text="0" styleName="grey" />
+					<s:Label text="Programme Menu" />
+					<mx:Spacer width="4" />
+					
+				</s:HGroup>
+				
+				<s:HGroup includeIn="programmes">
+					
+					<mx:Image source="@Embed('assets/arrows.png')" />
+					<s:Label text="Select Programme" />
+					<mx:Spacer width="4" />
+					
+					<mx:Image source="@Embed('assets/enter.png')" />
+					<s:Label text="Play Programme" />
+					<mx:Spacer width="4" />
+					
+					<s:Label text="0" styleName="grey" />
+					<s:Label text="Channel Menu" />
+					<mx:Spacer width="4" />
+					
+				</s:HGroup>
+				
+			</s:HGroup>
+		
+		</s:Group>
+		
+	</s:VGroup>
+	
+</s:Application>

@@ -1,5 +1,5 @@
-Unofficial BBC iPlayer plugin for DivX Connected
-================================================
+BBC iPlayer plugin for DivX Connected
+=====================================
 
 **This is an unofficial BBC iPlayer plug-in for DivX Connected (UK only)**
 

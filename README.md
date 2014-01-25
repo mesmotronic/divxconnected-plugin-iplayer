@@ -9,6 +9,8 @@ It is not currently possible, however, to view items which require age verificat
 
 For the smoothest playback, ensure that the frame rate settings on the Performance tab of the server options are both set to '25FPS (PAL)' and multi-sampling is set to 2x or higher.
 
+The plug-in is created using a combination of JavaScript, ActionScript 3 and MXML.
+
 Plugin
 ------
 

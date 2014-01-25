@@ -9,11 +9,9 @@ It is not currently possible, however, to view items which require age verificat
 
 For the smoothest playback, ensure that the frame rate settings on the Performance tab of the server options are both set to '25FPS (PAL)' and multi-sampling is set to 2x or higher.
 
-Check out the Mesmotronic Blog for more information about this and Mesmotronic's other DivX Connected plugins.
-
 Plugin
 ------
 
 The DivX Connected plugin is stored in the bin-plugin folder and can be installed simply by double clicking on it on any PC with DivX Connected installed.
 
-For more information see the Mesmotronic Blog at http://blog.mesmotronic.com/
+Check out the Mesmotronic Blog for more information about this and Mesmotronic's other DivX Connected plugins: http://blog.mesmotronic.com/

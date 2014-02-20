@@ -48,13 +48,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
 	
 	<fx:Script>
 		<![CDATA[
-			import flash.net.navigateToURL;
+			import flash.net.SharedObject;
 			
 			import mx.collections.XMLListCollection;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
-			
-			import spark.events.IndexChangeEvent;
 			
 			namespace atom = "http://www.w3.org/2005/Atom";
 			use namespace atom;
@@ -95,9 +93,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
 							if (programmeList.selectedIndex == -1) return;
 							
 							var id:String = programmeList.selectedItem.id.toString().split(":").pop();
-							//var url:String = "http://www.bbc.co.uk/iplayer/bigscreen/playback/"+id;
-							//ExternalInterface.call("loadPage", url);
-							
+														
 							if (ExternalInterface.available) 
 							{
 								ExternalInterface.call("loadConsole", id);

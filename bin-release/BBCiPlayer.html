@@ -54,33 +54,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
 			{
 				connected.onKeyEvent = onKeyEvent;
 			}
-
-			function loadPage(uri)
-			{
-				var desc = connected.createPageDescriptor();
-				desc.uri = uri;
-				desc.pageType = dcIConnected.PT_HTML;
-				desc.viewConstraints.addResolutionConstraint(640, 360); // Indented due to CSS! :-(
-				desc.audioCapture = true;
-				desc.htmlInputFocusMode = dcIPageDescriptor.FOCUS_MODE_WINDOW;
-				
-				connected.loadFromPageDescriptor(desc);
-			}
-
-			function loadBigScreen(id)
-			{
-				var uri = "http://www.bbc.co.uk/iplayer/bigscreen/playback/"+id;
 			
-				var desc = connected.createPageDescriptor();
-				desc.uri = uri;
-				desc.pageType = dcIConnected.PT_HTML;
-				desc.viewConstraints.addResolutionConstraint(640, 360); // Indented due to CSS! :-(
-				desc.audioCapture = true;
-				desc.htmlInputFocusMode = dcIPageDescriptor.FOCUS_MODE_WINDOW;
-				
-				connected.loadFromPageDescriptor(desc);
-			}
-
 			function loadConsole(id)
 			{
 				var uri = "http://www.bbc.co.uk/iplayer/console/tv/"+id;
